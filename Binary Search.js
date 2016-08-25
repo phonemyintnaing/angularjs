@@ -1,4 +1,4 @@
-#Binary search function 
+//#Binary search function 
 var binarysearch_ruleId = function (a,o) {
 if(typeof(a) == 'undefined' || a == null) return -1;
 if (a.length==0) return -1;
