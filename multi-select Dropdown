@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+
+
+<p>Simple Angularjs multi select dropdown.</p>
+
+<!-- multi-select -->
+<div align="center">
+        <div><button id="mybutton" ng-click="showSelect()">Select Names</button><br><br></div>
+        <div>
+			<div ng-show="showHide">
+			<table>
+				<tr>
+					<span style="margin:4px;width:130px;">	
+						 Search: <input ng-model="query">
+					</span><br>
+					&nbsp;&nbsp;&nbsp;<label class="checkbox inline">
+					<input type="checkbox" ng-model="all_check" ng-click="allSelectChange()">
+					<b>Select All </b></input></label><br>
+					<span ng-repeat="l in names | filter:query ">
+							
+						&nbsp;&nbsp;&nbsp;<label class="checkbox inline"><input type="checkbox" ng-model="l.checked">
+						{{l.Name}}</input></label><br> 
+					</span>	 
+				</tr>
+			</table>
+					<button  ng-click="submit()">Submit</button>&nbsp;&nbsp;&nbsp;	
+					<button  ng-click="clear()">Clear</button>	
+		
+			
+			</div>
+		</div>
+		
+
+</div>		
+		
+<!-- end-->	
+
+<!--multi select  result -->
+<div align="centre" >
+Result	: 
+<select ng-model="selectedName" ng-options="x as x.Name for x in result">
+</select>
+<nr>
+
+</div>
+
+<!-- result end -->
+	
+</center>
+
+  </div>
+ 
+
+<!-- JS -->
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.names = [ {Name:"Phone", checked:false},
+					{Name: "Myint", checked:false},
+					{Name: "Naing", checked:false}
+				   ];
+	$scope.all_check = false;
+	$scope.showHide = false;
+	$scope.result = []; 
+	
+	
+	//show / hide  select 
+	$scope.showSelect = function(){
+		if ($scope.showHide == false)
+			$scope.showHide = true;  
+		else
+			$scope.showHide = false;
+	};
+	
+	
+	//select all on/off
+	$scope.allSelectChange = function(){
+		
+		//select all using angular foreach
+		angular.forEach($scope.names, function(value, key){
+			$scope.names[key].checked = $scope.all_check;
+		});	
+	
+	}
+	
+	
+	//submit values=> get checked result	
+	$scope.submit = function () {
+		$scope.result = []; 
+		angular.forEach($scope.names, function(value, key){
+			
+			if ($scope.names[key].checked == true) //if checked,push the result
+				$scope.result.push($scope.names[key]);
+				
+		});			
+
+	}
+	
+	//clear
+	$scope.clear = function(){
+			//check uncheck all using angular foreach
+		$scope.all_check = false;
+		angular.forEach($scope.names, function(value, key){
+			//console.log($scope.names[key]);
+			$scope.names[key].checked = false;
+		});	
+		
+		$scope.result = []; 
+	
+	}
+	
+	
+	
+});
+</script>
+
+
+
+
+</body>
+</html>
