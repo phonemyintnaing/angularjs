@@ -12,7 +12,7 @@ return -1;
 
 
 //search ruleData in rulePermit
-$.each($scope.rulePermit, function(k, v){
+angular.forEach($scope.rulePermit, function(k, v){
     var pos = binarysearch_ruleId($scope.ruleData,v.id); //call binary search
 				
 	if (pos!=-1) //if found by matching id with ruleId
